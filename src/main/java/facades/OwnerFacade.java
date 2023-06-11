@@ -45,12 +45,13 @@ public class OwnerFacade {
         if(boatId == null) {
             return null;
         }
-        TypedQuery<Owner> query = entityManager.createQuery("SELECT o FROM Owner o", Owner.class);
+        TypedQuery<Owner> query = entityManager.createQuery("SELECT o FROM Owner o JOIN o.boats b WHERE b.id =:boatid", Owner.class);
+        query.setParameter("boatid", boatId);
         List<Owner> owners = query.getResultList();
         return OwnerDTO.getDtos(owners);
     }
 
-    public Long getBoatIdByName(String name) {
+    private Long getBoatIdByName(String name) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Boat> query = em.createQuery("SELECT b FROM Boat b WHERE b.name =:name",Boat.class);
         query.setParameter("name",name);

@@ -45,7 +45,7 @@ public class BoatFacade {
         return BoatDTO.getDtos(boats);
     }
 
-    public Long getHarbourIdByName(String name) {
+    private Long getHarbourIdByName(String name) {
         EntityManager em = emf.createEntityManager();
         TypedQuery<Harbour> query = em.createQuery("SELECT h FROM Harbour h WHERE h.name =:name",Harbour.class);
         query.setParameter("name",name);

@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Boat;
 import entities.EntityExample;
 import entities.Owner;
 import org.junit.jupiter.api.*;
@@ -39,9 +40,15 @@ public class OwnerFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("owner.deleteAllRows").executeUpdate();
-            em.persist(new Owner("Some txt", "More text", 12345678));
-            em.persist(new Owner("aaa", "bbb", 87654321));
-
+            em.createNamedQuery("boat.deleteAllRows").executeUpdate();
+            Owner owner1 = new  Owner("Some txt", "More text", 12345678);
+            Owner owner2 = new  Owner("aaa", "bbb", 87654321);
+            Boat boat1 = new Boat("name1","make1","brand","image1");
+            owner1.addBoat(boat1);
+            owner2.addBoat(boat1);
+            em.persist(boat1);
+            em.persist(owner1);
+            em.persist(owner2);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -57,6 +64,13 @@ public class OwnerFacadeTest {
     public void testGetAllOwners() throws Exception {
         System.out.println("getAllOwners");
         assertEquals(2, facade.getAllOwners().size(), "Expects two rows in the database");
+    }
+
+    @Test
+    public void testgetOwnersOfABoat() throws Exception {
+        System.out.println("getOwnersOfABoat");
+        System.out.println(facade.getOwnersOfABoat("name1"));
+        assertEquals(2, facade.getOwnersOfABoat("name1").size(), "Expects two rows in the database");
     }
     
 

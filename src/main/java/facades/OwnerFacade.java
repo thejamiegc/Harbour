@@ -38,4 +38,23 @@ public class OwnerFacade {
         List<Owner> owners = query.getResultList();
         return OwnerDTO.getDtos(owners);
     }
+
+    public List<OwnerDTO> getOwnersOfABoat(String boatName) {
+        EntityManager entityManager = emf.createEntityManager();
+        Long boatId = getBoatIdByName(boatName);
+        if(boatId == null) {
+            return null;
+        }
+        TypedQuery<Owner> query = entityManager.createQuery("SELECT o FROM Owner o", Owner.class);
+        List<Owner> owners = query.getResultList();
+        return OwnerDTO.getDtos(owners);
+    }
+
+    public Long getBoatIdByName(String name) {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Boat> query = em.createQuery("SELECT b FROM Boat b WHERE b.name =:name",Boat.class);
+        query.setParameter("name",name);
+        return query.getResultList().get(0).getId();
+    }
+
 }

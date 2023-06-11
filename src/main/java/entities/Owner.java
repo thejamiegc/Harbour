@@ -45,6 +45,10 @@ public class Owner {
         this.boats = boats;
     }
 
+    public void addBoat(Boat boat) {
+        this.boats.add(boat);
+    }
+
     public Integer getPhone() {
         return phone;
     }

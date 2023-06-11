@@ -1,7 +1,6 @@
 package rest;
 
 import entities.Boat;
-import entities.EntityExample;
 import entities.Owner;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
@@ -21,7 +20,6 @@ import java.net.URI;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 
 class OwnerResourceTest {
 

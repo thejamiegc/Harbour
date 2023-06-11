@@ -1,7 +1,6 @@
 package facades;
 
 import entities.Boat;
-import entities.EntityExample;
 import entities.Owner;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
